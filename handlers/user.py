@@ -1,6 +1,7 @@
 from typing import List, Union
 from beanie import PydanticObjectId
 from models.user import User
+from .jwt import decode_jwt
 
 user_collection = User
 
@@ -33,3 +34,13 @@ async def update_users_data(id: PydanticObjectId, data: dict) -> Union[bool, Use
         await user.update(update_query)
         return user
     return False
+
+async def get_current_user(token: str):
+    payload = decode_jwt(token)
+    username: str = payload['username']
+    if username is None:
+        return False
+    user = await User.find_one(User.username == username)
+    if user is None:
+        return False
+    return user

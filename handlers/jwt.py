@@ -5,7 +5,6 @@ from config.config import Settings
 from jose import jwt
 from config.config import Settings
 
-# TODO cek semua fitur kalo aman hapus ni jwt_handler.py
 secret_key = Settings().SECRET_KEY
 
 def token_response(token: str):

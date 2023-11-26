@@ -51,24 +51,24 @@ class UserData(BaseModel):
   class Config:
     json_schema_extra = {
       "example": {
+        "_id": "5f8a5e3b9f3c2e4c9e3a7b9f",
         "username": "johndoe",
         "email": "johndoe@gmail.com",
       }
     }
 
-class Response(BaseModel):
-  status_code: int
-  response_type: str
-  description: str
-  data: Optional[Any]
+# class Response(BaseModel):
+#   status_code: int
+#   response_type: str
+#   description: str
+#   data: Optional[Any]
 
-  class Config:
-    json_schema_extra = {
-      "example": {
-          "status_code": 200,
-          "response_type": "success",
-          "description": "Operation successful",
-          "data": "Sample data",
-      }
-    }
-
+#   class Config:
+#     json_schema_extra = {
+#       "example": {
+#           "status_code": 200,
+#           "response_type": "success",
+#           "description": "Operation successful",
+#           "data": "Sample data",
+#       }
+#     }

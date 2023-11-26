@@ -17,6 +17,6 @@ async def startup():
 async def root():
   return {"Welcome": "Cafe Analyzer API"}
 
-app.include_router(maps.router)
 app.include_router(auth.router, tags=["Authentication"])
+app.include_router(maps.router, tags=["Maps"], prefix="/maps", dependencies=[Depends(token_listener)])
 app.include_router(user.router, tags=["Users"], prefix="/users", dependencies=[Depends(token_listener)])

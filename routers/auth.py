@@ -1,27 +1,15 @@
 from fastapi import Body, APIRouter, HTTPException
 from passlib.context import CryptContext
-from pydantic import BaseModel
-from auth.jwt_handler import sign_jwt
+from models import user
+from schema.response import ResponseLogin
+from handlers.jwt import sign_jwt
 from handlers.user import add_users
-from models.user import User, Response, UserLogin, UserData
+from models.user import User, UserLogin, UserData
+from schema.response import Response
 
 router = APIRouter()
 
 hash_helper = CryptContext(schemes=["bcrypt"])
-
-class ResponseLogin(BaseModel):
-  status_code: int
-  description: str
-  token: object
-
-  class Config:
-    json_schema_extra = {
-      "example": {
-        "status_code": 200,
-        "description": "Login Successfull",
-        "token": "Sample Token",
-      }
-    }
 
 @router.post("/register", response_description="User data added into the database", response_model=Response)
 async def register_user(user: User = Body(...)):

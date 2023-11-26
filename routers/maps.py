@@ -9,11 +9,10 @@ from fastapi.responses import Response
 load_dotenv()
 MAPS_API_KEY = os.getenv("MAPS_API_KEY")
 
-router = APIRouter(
-  prefix="/maps",
-  tags=["Maps"]
-)
+router = APIRouter()
 
+# TODO buatkan endpoint next_page
+# TODO rapikan semua nya
 @router.get("/nearby-search", tags=["Maps"])
 async def nearby_search(
   keyword: Annotated[str, Query(

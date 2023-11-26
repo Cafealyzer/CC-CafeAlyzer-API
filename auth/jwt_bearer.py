@@ -1,5 +1,3 @@
-from curses.ascii import HT
-from typing import Optional
 from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
