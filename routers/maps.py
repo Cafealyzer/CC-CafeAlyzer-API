@@ -1,15 +1,10 @@
 import os
 import httpx
 import subprocess
-from bs4 import BeautifulSoup
-from typing import Annotated, Optional
+from typing import Annotated
 from dotenv import load_dotenv
-from .auth import (
-   User,
-   get_current_active_user
-)
-from fastapi import APIRouter, Query, Path, HTTPException, Depends
-from fastapi.responses import Response, RedirectResponse
+from fastapi import APIRouter, Query, Path
+from fastapi.responses import Response
 
 load_dotenv()
 MAPS_API_KEY = os.getenv("MAPS_API_KEY")
@@ -42,7 +37,6 @@ async def nearby_search(
     description="Restricts the results to places matching the specified type.",
     example="cafe"
   )],
-  current_user: Annotated[User, Depends(get_current_active_user)]
 ):
   url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
   params = {
