@@ -16,7 +16,6 @@ hash_helper = CryptContext(schemes=["bcrypt"])
 @router.get("/", response_description="User retrieved", response_model=Response)
 async def get_users():
   users = await get_all_users()
-  print(users)
   return {
     "status_code": 200,
     "response_type": "success",

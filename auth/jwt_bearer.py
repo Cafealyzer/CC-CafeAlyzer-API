@@ -1,7 +1,7 @@
 from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-from .jwt_handler import decode_jwt
+from handlers.jwt import decode_jwt
 
 def verify_jwt(jwt_token: str) -> bool:
   is_token_valid = False
