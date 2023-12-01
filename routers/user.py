@@ -5,7 +5,7 @@ from handlers.user import *
 from models.user import *
 from auth.jwt_bearer import JWTBearer
 from handlers.user import get_current_user
-from schema.response import Response
+from schema.response import *
 
 router = APIRouter()
 
@@ -23,7 +23,7 @@ async def get_users():
     "data": [UserData(_id=user.id, username=user.username, email=user.email) for user in users],
   }
 
-@router.get("/me", response_description="User retrieved", response_model=Response)
+@router.get("/me", response_description="User retrieved", response_model=ResponseMe)
 async def get_user(token: dependencies=Depends(token_listener)):
   user = await get_current_user(token)
   if not user:
@@ -36,11 +36,12 @@ async def get_user(token: dependencies=Depends(token_listener)):
         "data": None,
       }
     )
+  print(user)
   return {
     "status_code": 200,
     "response_type": "success",
     "description": "User retrieved successfully",
-    "data": user,
+    "data": UserData(id=user.id, username=user.username, email=user.email),
   }
 
 # @router.get("/{id}", response_description="User retrieved", response_model=Response)
@@ -79,7 +80,6 @@ async def update_user(id: PydanticObjectId, user: UpdateUser = Body(...) ):
     "data": None,
   }
 
-# TODO delete berdasarkan token
 @router.delete("/{id}", response_description="User data deleted", response_model=Response)
 async def delete_user(id: PydanticObjectId):
   deleted_user = await delete_users(id)

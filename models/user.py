@@ -44,7 +44,7 @@ class UserLogin(HTTPBasicCredentials):
     }
 
 class UserData(BaseModel):
-  _id = PydanticObjectId
+  id: PydanticObjectId
   username: str = Field(...)
   email: EmailStr
   

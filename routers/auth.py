@@ -38,10 +38,10 @@ async def register_user(user: User = Body(...)):
     user.password = hash_helper.hash(user.password)
     new_user = await add_users(user)
     return {
-       "status_code": 200,
-        "response_type": "success",
-        "description": "Operation successful",
-        "data": UserData(username=new_user.username, email=new_user.email),
+      "status_code": 200,
+      "response_type": "success",
+      "description": "Register successful",
+      "data": UserData(id=new_user.id, username=new_user.username, email=new_user.email),
     }
 
 @router.post("/login", response_description="User logged in successfully", response_model=ResponseLogin)
