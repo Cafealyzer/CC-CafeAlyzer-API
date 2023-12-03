@@ -33,7 +33,7 @@ cp .env.sample .env
 4. Start the application:
 
 ```console
-python main.py
+uvicorn main:app --reload
 ```
 
 The starter listens on port 8000 on address [0.0.0.0](0.0.0.0:8080). 
