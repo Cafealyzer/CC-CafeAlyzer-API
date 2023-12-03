@@ -25,10 +25,10 @@ $ python3 -m venv venv
 ```
 3. You also need to start your mongodb instance either locally or on Docker as well as create a `.env.dev` file. See the `.env.sample` for configurations. 
 
-    Example for running locally MongoDB at port 27017:
-    ```console
-    cp .env.sample .env.dev
-    ```
+Example for running locally MongoDB at port 27017:
+```console
+cp .env.sample .env
+```
 
 4. Start the application:
 
