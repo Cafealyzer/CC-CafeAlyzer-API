@@ -19,7 +19,7 @@ def sign_jwt(username: str) -> Dict[str, str]:
     "expires": time.time() + 2_628_000
   }
   token = jwt.encode(payload, secret_key, algorithm="HS256")
-  return token_response(token)
+  return token
 
 def decode_jwt(token: str) -> dict:
   decoded_token = jwt.decode(token.encode(), secret_key, algorithms=["HS256"])

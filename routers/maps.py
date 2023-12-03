@@ -1,7 +1,7 @@
 import os
 import httpx
 import subprocess
-from typing import Annotated
+from typing import Annotated, Optional
 from dotenv import load_dotenv
 from fastapi import APIRouter, Query, Path
 from fastapi.responses import Response
@@ -29,11 +29,7 @@ async def nearby_search(
     description="Defines the distance (in meters) within which to return place results.",
     example="1500"
   )],
-  type: Annotated[str, Query(
-    title="Type",
-    description="Restricts the results to places matching the specified type.",
-    example="cafe"
-  )],
+  # type: Optional[str] = Query(None, title="Type", description="Restricts the results to places matching the specified type.", example="cafe"),
 ):
   url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
   params = {

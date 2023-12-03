@@ -47,9 +47,6 @@ class ResponseLogin(BaseModel):
       "example": {
         "status_code": 200,
         "description": "Login Successfull",
-        "token": {
-          "type": "bearer",
-          "access_token": "token"
-        },
+        "token": "eyJhbGe...",
       }
     }
