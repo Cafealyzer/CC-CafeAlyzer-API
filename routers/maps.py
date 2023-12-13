@@ -1,7 +1,8 @@
 import os
 import httpx
+import json
 import subprocess
-from typing import Annotated, Optional
+from typing import Annotated
 from dotenv import load_dotenv
 from fastapi import APIRouter, Query, Path
 from fastapi.responses import Response
@@ -11,7 +12,57 @@ MAPS_API_KEY = os.getenv("MAPS_API_KEY")
 
 router = APIRouter()
 
-@router.get("/nearby-search", tags=["Maps"])
+@router.get("/top-rated")
+async def top_rated(
+  keyword: Annotated[str, Query(
+    title="Keyword",
+    description="The text string on which to search for example: 'restaurant' or '123 Main Street'",
+    example="cafe",
+    min_length=3
+  )],
+  location: Annotated[str, Query(
+    title="Location",
+    description="The point around which to retrieve place information. This must be specified as latitude,longitude.",
+    example="-1.2490478412943036, 116.86692126759571"
+  )],
+  radius: Annotated[int, Query(
+    title="Radius",
+    description="Defines the distance (in meters) within which to return place results.",
+    example="1500"
+  )],
+):
+  url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+  params = {
+    "keyword": keyword,
+    "location": location,
+    "radius": radius,
+    "type": 'cafe',
+    "rankby": "prominence",
+    "fields": "formatted_address,name,rating,opening_hours,geometry,reviews",
+    "key" : MAPS_API_KEY
+  }
+  async with httpx.AsyncClient() as client:
+    response = await client.get(url, params=params)
+  
+  data = response.json()
+  results = data['results']
+  filtered_results = [r for r in results if r['user_ratings_total'] >= 20]
+
+  sorted_results = sorted(filtered_results, key=lambda k: k['rating'], reverse=True)
+
+  top_3 = sorted_results[:3]
+  new_data = {
+    "html_attributions": data['html_attributions'],
+    "next_page_token": data['next_page_token'],
+    "results": top_3,
+  }
+  
+  new_response = json.dumps(new_data)
+  new_data_dict = json.loads(new_response)
+  print(type(new_data_dict))
+  return new_data_dict
+
+@router.get("/nearby-search")
 async def nearby_search(
   keyword: Annotated[str, Query(
     title="Keyword",
@@ -36,7 +87,7 @@ async def nearby_search(
     "keyword": keyword,
     "location": location,
     "radius": radius,
-    "type": type,
+    # "type": type,
     "rankby": "prominence",
     "fields": "formatted_address,name,rating,opening_hours,geometry,reviews",
     "key" : MAPS_API_KEY
@@ -89,7 +140,7 @@ async def find_place(
   except subprocess.CalledProcessError as e:
       print(f"Error: {e}")
       
-@router.get("/place-detail/{place_id}", tags=["Maps"])
+@router.get("/place-detail/{place_id}")
 async def place_detail(place_id: Annotated[
   str,
   Path(

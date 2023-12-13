@@ -1,4 +1,3 @@
-from urllib import response
 from beanie import PydanticObjectId
 from fastapi import APIRouter, Body, Depends, HTTPException, dependencies
 from auth.jwt_bearer import JWTBearer
