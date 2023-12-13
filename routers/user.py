@@ -20,7 +20,7 @@ async def get_users():
     "status_code": 200,
     "response_type": "success",
     "description": "Users retrieved successfully",
-    "data": [UserData(_id=user.id, username=user.username, email=user.email) for user in users],
+    "data": [UserData(id=user.id, username=user.username, email=user.email) for user in users],
   }
 
 @router.get("/me", response_description="User retrieved", response_model=ResponseMe)
@@ -36,30 +36,12 @@ async def get_user(token: dependencies=Depends(token_listener)):
         "data": None,
       }
     )
-  print(user)
   return {
     "status_code": 200,
     "response_type": "success",
     "description": "User retrieved successfully",
     "data": UserData(id=user.id, username=user.username, email=user.email),
   }
-
-# @router.get("/{id}", response_description="User retrieved", response_model=Response)
-# async def get_user(id: PydanticObjectId):
-#   user = await get_user_by_id(id)
-#   if user:
-#     return {
-#       "status_code": 200,
-#       "response_type": "success",
-#       "description": "User retrieved successfully",
-#       "data": user,
-#     }
-#   return {
-#     "status_code": 404,
-#     "response_type": "error",
-#     "description": "User not found",
-#     "data": None,
-#   }
 
 @router.put("/{id}", response_description="User data updated", response_model=Response)
 async def update_user(id: PydanticObjectId, user: UpdateUser = Body(...) ):

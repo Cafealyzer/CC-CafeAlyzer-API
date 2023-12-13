@@ -2,6 +2,7 @@ from fastapi import Depends, FastAPI
 from routers import maps
 from routers import auth
 from routers import user
+from routers import history
 from config.config import initiate_datebase
 from auth.jwt_bearer import JWTBearer
 
@@ -20,3 +21,4 @@ async def root():
 app.include_router(auth.router, tags=["Authentication"])
 app.include_router(maps.router, tags=["Maps"], prefix="/maps", dependencies=[Depends(token_listener)])
 app.include_router(user.router, tags=["Users"], prefix="/users", dependencies=[Depends(token_listener)])
+app.include_router(history.router, tags=["History"], prefix="/histories", dependencies=[Depends(token_listener)])

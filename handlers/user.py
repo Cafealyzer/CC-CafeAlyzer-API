@@ -40,7 +40,7 @@ async def get_current_user(token: str):
     username: str = payload['username']
     if username is None:
         return False
-    user = await User.find_one(User.username == username)
+    user = await user_collection.find_one(user_collection.username == username)
     if user is None:
         return False
     return user

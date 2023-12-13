@@ -21,6 +21,9 @@ def sign_jwt(username: str) -> Dict[str, str]:
   token = jwt.encode(payload, secret_key, algorithm="HS256")
   return token
 
-def decode_jwt(token: str) -> dict:
-  decoded_token = jwt.decode(token.encode(), secret_key, algorithms=["HS256"])
-  return decoded_token if decoded_token["expires"] >= time.time() else {}
+def decode_jwt(token: str) -> dict | bool:
+  try:
+    decoded_token = jwt.decode(token.encode(), secret_key, algorithms=["HS256"])
+    return decoded_token if decoded_token["expires"] >= time.time() else {}
+  except jwt.JWTError:
+    return False

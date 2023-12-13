@@ -50,3 +50,17 @@ class ResponseLogin(BaseModel):
         "token": "eyJhbGe...",
       }
     }
+
+class ResponseDeleteHistory(BaseModel):
+  status_code: int
+  description: str
+  response_type: str
+
+  class Config:
+    json_schema_extra = {
+      "example": {
+        "status_code": 200,
+        "response_type": "success",
+        "description": "History deleted successfully",
+      }
+    }
