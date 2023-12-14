@@ -20,11 +20,11 @@ class History(Document):
         "cafeUser": "fusion cafe",
         "cafeCompetitor": "starbucks",
         "date": "2020-10-18T00:00:00Z",
-        "positiveFeedback": ["good coffee", "good service"],
-        "negativeFeedback": ["bad coffee", "bad service"],
-        "positiveFeedbackCompetitor": ["good coffee", "good service"],
-        "negativeFeedbackCompetitor": ["bad coffee", "bad service"],
-        "suggestion": ["more coffee", "more service"]
+        "positiveFeedback": ["kopinya enak", "pelayanannya baik"],
+        "negativeFeedback": ["teh nya kurang manis", "uang kembalian sobek"],
+        "positiveFeedbackCompetitor": ["kopinya mantap", "harga terjangkau"],
+        "negativeFeedbackCompetitor": ["jauh dari tempat saya"],
+        "suggestion": ["Pastikan untuk tetap mempertahankan dan meningkatkan kualitas kopi agar pengalaman pengguna tetap memuaskan.", "Jangan lupakan untuk terus memberikan pelayanan yang ramah dan efisien kepada pelanggan.", "Pastikan untuk menjaga harga agar tetap bersaing dan memberikan nilai yang baik bagi pelanggan."]
       }
     }
     

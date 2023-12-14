@@ -7,6 +7,7 @@ class Settings(BaseSettings):
 	DATABASE_URL: str
 	SECRET_KEY: str
 	MAPS_API_KEY: str
+	VERSION_APP: str
 
 	class Config:
 		env_file = ".env"

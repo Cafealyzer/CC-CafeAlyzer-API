@@ -3,10 +3,10 @@ from routers import maps
 from routers import auth
 from routers import user
 from routers import history
-from config.config import initiate_datebase
+from config.config import Settings, initiate_datebase
 from auth.jwt_bearer import JWTBearer
 
-app = FastAPI()
+app = FastAPI(title="Cafe Analyzer API", description="API for Cafe Analyzer", version=Settings().VERSION_APP)
 
 token_listener = JWTBearer()
 
