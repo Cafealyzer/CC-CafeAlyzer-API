@@ -1,3 +1,4 @@
+import datetime
 from typing import List
 from beanie import PydanticObjectId
 from models.history import History
@@ -11,8 +12,24 @@ async def get_all_user_histories(token) -> List[History]:
   histories = await history_collection.find(history_collection.username == username).to_list()
   return histories
 
-async def create_user_history(new_history: History) -> History:
-  history = await new_history.create()
+async def create_user_history(new_history: History, token) -> History:
+  username = decode_jwt(token)['username']
+
+  history = History(
+    _id=PydanticObjectId(),
+    username=username,
+    cafeUser=new_history.cafeUser,
+    cafeCompetitor=new_history.cafeCompetitor,
+    date=datetime.datetime.now(),
+    positiveFeedback=new_history.positiveFeedback,
+    negativeFeedback=new_history.negativeFeedback,
+    positiveFeedbackCompetitor=new_history.positiveFeedbackCompetitor,
+    negativeFeedbackCompetitor=new_history.negativeFeedbackCompetitor,
+    suggestion=new_history.suggestion,
+  )
+
+  await history.save()
+
   return history
 
 async def delete_user_history(id: PydanticObjectId) -> History:

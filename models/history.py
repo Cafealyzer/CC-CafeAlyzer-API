@@ -3,10 +3,10 @@ from beanie import Document
 from pydantic import Field
 
 class History(Document):
-  username: str = Field(...)
+  username: str = Field(None)
   cafeUser: str = Field(...)
   cafeCompetitor: str = Field(...)
-  date: datetime
+  date: datetime = Field(None)
   positiveFeedback: list = Field(...)
   negativeFeedback: list = Field(...)
   positiveFeedbackCompetitor: list = Field(...)
@@ -16,10 +16,8 @@ class History(Document):
   class Config:
     json_schema_extra = {
       "example": {
-        "username": "zikri",
         "cafeUser": "fusion cafe",
         "cafeCompetitor": "starbucks",
-        "date": "2020-10-18T00:00:00Z",
         "positiveFeedback": ["kopinya enak", "pelayanannya baik"],
         "negativeFeedback": ["teh nya kurang manis", "uang kembalian sobek"],
         "positiveFeedbackCompetitor": ["kopinya mantap", "harga terjangkau"],

@@ -20,8 +20,8 @@ async def get_user_history(token: dependencies=Depends(token_listener)):
   }
 
 @router.post("/", response_description="History created", response_model=Response)
-async def create_history(history: History = Body(...)):
-  history = await create_user_history(history)
+async def create_history(history: History = Body(...), token: dependencies=Depends(token_listener)):
+  history = await create_user_history(history, token)
   return {
     "status_code": 201,
     "response_type": "success",
