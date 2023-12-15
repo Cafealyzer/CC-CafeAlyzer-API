@@ -88,6 +88,7 @@ async def nearby_search(
     "location": location,
     "radius": radius,
     # "type": type,
+    "language": "id",
     "rankby": "prominence",
     "fields": "formatted_address,name,rating,opening_hours,geometry,reviews",
     "key" : MAPS_API_KEY
@@ -129,6 +130,7 @@ async def find_place(
     "fields": "formatted_address,name,rating,geometry,place_id",
     "input": input,
     "inputtype": "textquery",
+    "language": "id",
     "locationbias": "circle:"+radius+"@"+location,
     "key": MAPS_API_KEY
   }
@@ -153,6 +155,7 @@ async def place_detail(place_id: Annotated[
   params = {
     "fields": "place_id,rating,reviews,user_ratings_total,url,types,formatted_address,formatted_phone_number,business_status,photos",
     "place_id": place_id,
+    "language": "id",
     "key": MAPS_API_KEY
   }
 
